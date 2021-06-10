@@ -17,10 +17,13 @@ jobs:
       - name: Commit
         run: |
           git add .
+          status=$(git status --porcelain)
+          if [ -n ]
           git \
           -c user.name="ci-bot" \
           -c user.email="<>" \
-          commit -m ":package: chore: build project"
+          commit -m ":package: chore: build project" \  
+          || true
           git push
 
       - name: Upload coverage report
