@@ -16,8 +16,11 @@ jobs:
 
       - name: Commit
         run: |
-          git add *
-          git commit -m ":package: chore: build project"
+          git add .
+          git commit \
+          -c user.name="ci-bot" \
+          -c user.email="<>" \
+          -m ":package: chore: build project"
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v1
