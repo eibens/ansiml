@@ -17,7 +17,7 @@ jobs:
       - name: Commit
         run: |
           git add .
-          git
+          git \
           -c user.name="ci-bot" \
           -c user.email="<>" \
           commit -m ":package: chore: build project"
