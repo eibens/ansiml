@@ -64,7 +64,7 @@ const text: Node = "some text";
 
 // This is an internal node in AnsiML.
 // The commands apply to all children.
-const text: Node = {
+const internal: Node = {
   commands: [["bold"], ["rgb24", 0x88CCFF]],
   children: [text],
 };
