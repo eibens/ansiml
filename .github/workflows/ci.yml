@@ -18,7 +18,6 @@ jobs:
         run: |
           git add .
           status=$(git status --porcelain)
-          if [ -n ]
           git \
           -c user.name="ci-bot" \
           -c user.email="<>" \
