@@ -1,3 +1,23 @@
+function apply(input, commands, reducer) {
+  if (commands.length === 0) return input;
+  const [command, ...rest] = commands;
+  const next = reducer(input, command);
+  return apply(next, rest, reducer);
+}
+const mod = function () {
+  return {
+    apply: apply,
+  };
+}();
+function apply1(input, command, lookup) {
+  const [name, ...args] = command;
+  return lookup[name](input, ...args);
+}
+const mod1 = function () {
+  return {
+    apply: apply1,
+  };
+}();
 const noColor = globalThis.Deno?.noColor ?? true;
 let enabled = !noColor;
 function setColorEnabled(value) {
@@ -425,7 +445,7 @@ const ANSI_PATTERN = new RegExp(
 function stripColor(string) {
   return string.replace(ANSI_PATTERN, "");
 }
-const mod = function () {
+const mod2 = function () {
   return {
     setColorEnabled: setColorEnabled,
     getColorEnabled: getColorEnabled,
@@ -477,23 +497,24 @@ const mod = function () {
     stripColor: stripColor,
   };
 }();
+const ignore = {
+  code: null,
+  run: null,
+  getColorEnabled: null,
+  setColorEnabled: null,
+};
+const Ansi = Object.keys(mod2).filter((key) => !(key in ignore)).map((key) =>
+  key
+).reduce((obj, key) => ({
+  ...obj,
+  [key]: mod2[key],
+}), {});
 function stringify1(node) {
   if (typeof node === "string") return node;
   const { commands, children } = node;
-  const body = children.map(stringify1).join("");
-  return applyAll(...commands)(body);
-}
-function apply(command) {
-  const [name, ...args] = command;
-  const f = mod[name];
-  return (x) => f(x, ...args);
-}
-function applyAll(...commands) {
-  return (str) => {
-    if (commands.length === 0) return str;
-    const [command, ...rest] = commands;
-    const y = apply(command)(str);
-    return applyAll(...rest)(y);
-  };
+  const input = children.map(stringify1).join("");
+  return mod.apply(input, commands, (input1, command) => {
+    return mod1.apply(input1, command, Ansi);
+  });
 }
 export { stringify1 as stringify };
