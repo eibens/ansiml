@@ -1,9 +1,9 @@
-# AnsiML - Markup Language for ANSI Colors
+# [AnsiML] - Markup Language for [ANSI Colors]
 
-> **AnsiML** (ANSI Markup Language) uses a tree representation for inserting
-> [ANSI escape codes] into strings. This allows one to retain a separation
-> between text and colors until the last possible moment. This project is
-> implemented in TypeScript for [Deno].
+> [AnsiML] (ANSI Markup Language) uses a tree representation for inserting
+> [ANSI colors] into strings. This allows for a strict separation between text
+> and colors and thus semantic operations on formatted text. [AnsiML] comes with
+> a functional, statically typed implementation in TypeScript for [Deno].
 
 [![deno.land mod](https://img.shields.io/badge/deno.land-ansiml-lightgrey.svg?logo=deno)](https://deno.land/x/ansiml)
 [![deno.land doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/ansiml/mod.ts)
@@ -14,25 +14,33 @@
 
 # Motivation
 
-[ANSI escape codes] are special character sequences for adding colors to console
+[ANSI colors] are special character sequences for adding colors to console
 output. In [Deno] you can use the [ANSI colors module] to directly add these
 codes to a piece of text. Yet, once text contains colors, changing it becomes
-difficult. Consider these hypothetical tasks:
+difficult. The complexity of implementing operations on formatted text increases
+significantly when [ANSI colors] are included directly in the text. [AnsiML]
+solves this with an intermediate representation that keeps colors separate from
+the actual text.
 
-1. You want to print text with a maximum of 80 columns. If you do not explicitly
-   ignore the ANSI escape codes in the text while inserting line breaks, the
-   lines will end up shorter than they need to be.
-2. You want to print syntax-highlighted source code with line numbers to the
-   console. If you insert the line numbers into the text, syntax-highlighting
-   for multi-line comments and multi-line strings might be broken by the colors
-   for the line numbers. But if you add the line numbers before
-   syntax-highlighting, the highlighter will not able to parse the code.
+# Scenarios
 
-The complexity of these tasks increases significantly due to [ANSI escape codes]
-being included directly in the text. **AnsiML** solves this with an intermediate
-representation that keeps colors separate from the actual text.
+- You want to print ANSI formatted text with a maximum of 80 columns. If you do
+  not parse the ANSI colors in the text while calculating the positions of the
+  line breaks, the lines will end up shorter than they need to be.
 
-# [mod.ts]
+- You want to print syntax-highlighted source code with line numbers to the
+  console. If you insert the line numbers into the text, syntax-highlighting for
+  multi-line comments or string might be broken by the colors for the line
+  numbers. But if you add the line numbers before syntax-highlighting, the
+  highlighter will not able to parse the code.
+
+# Documentation
+
+[AnsiML] exposes a TypeScript API for [Deno]. It represents AnsiML as a tree of
+terminal `string` values (leaf nodes) and non-terminal `Node` objects (internal
+nodes).
+
+## [mod.ts]
 
 The `Command` type represents an ANSI color command as an array. The first
 element of this array is the name of a function in the [ANSI colors module]. The
@@ -70,8 +78,8 @@ const internal: Node = {
 };
 ```
 
-The `stringify` function converts a `Node` into a string with
-[ANSI escape codes]. It is used to render AnsiML:
+The `stringify` function converts a `Node` into a string with [ANSI colors]. It
+is used to render [AnsiML]:
 
 ```ts
 import { stringify } from "https://deno.land/x/ansiml/mod.ts";
@@ -82,11 +90,27 @@ const ansi = stringify({
   children: ["some text"],
 });
 
-// Outputs bold, blue text.
+// Print bold, blue text.
 console.log(ansi);
 ```
 
-# [demo.ts]
+## [ansi.ts]
+
+The `Ansi` type and object both define and implement the available ANSI color
+commands. It defines a subset of the properties exported by the
+[ANSI colors module]:
+
+```ts
+import { Ansi } from "https://deno.land/x/ansiml/ansi.ts";
+
+// Print bold text.
+console.log(Ansi.bold("some text"));
+
+// Print blue text.
+console.log(Ansi.rgb24("some text", 0x88CCFF));
+```
+
+## [demo.ts]
 
 The [demo.ts] module defines a simple AnsiML example that can be run with
 [deno]:
@@ -95,17 +119,24 @@ The [demo.ts] module defines a simple AnsiML example that can be run with
 deno run https://deno.land/x/ansiml/demo.ts
 ```
 
+# Related Work
+
+[lgram] is used as the core of [AnsiML].
+
 # That's it!
 
-For more information consider the source code repository
-[eibens/ansiml on GitHub].
+- Author: [Lukas Eibensteiner]
+- Repository: [eibens/ansiml on GitHub]
 
 <!-- links -->
 
-[eibens/ansiml on GitHub]: https://github.com/eibens/ansiml
+[AnsiML]: #
+[lgram]: https://github.com/eibens/lgram
 [mod.ts]: mod.ts
 [demo.ts]: demo.ts
-[ANSI escape codes]: https://en.wikipedia.org/wiki/ANSI_escape_code
+[ansi.ts]: ansi.ts
+[ANSI colors]: https://en.wikipedia.org/wiki/ANSI_escape_code
 [Deno]: https://deno.land/
 [ANSI colors module]: https://deno.land/std/fmt/colors.ts
-[ansi-cmd repository]: https://github.com/eibens/ansi-cmd
+[eibens/ansiml on GitHub]: https://github.com/eibens/ansiml
+[Lukas Eibensteiner]: mailto:l.eibesnteiner@gmail.com
