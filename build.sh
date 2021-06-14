@@ -28,3 +28,11 @@ rm -rf .cov
 # Generate bundle
 deno bundle mod.ts mod.js
 deno fmt mod.js
+
+# The developer must ensure that all files are updated.
+# Therefore, we fail if there are uncommitted changes.
+status=$(git status --porcelain)
+if [ -n "$status" ]; then
+  echo "Repository contains changed files."
+  exit 1
+fi
