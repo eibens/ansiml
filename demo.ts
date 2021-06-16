@@ -1,4 +1,5 @@
 import { Command, Node, stringify } from "./mod.ts";
+import { stringify as stringifyHtml } from "./html.ts";
 
 const pretty: Command[] = [
   ["bold"],
@@ -18,4 +19,8 @@ const node: Node = {
 
 console.log(
   stringify(node),
+);
+
+console.log(
+  stringifyHtml(node),
 );

@@ -1,0 +1,56 @@
+type F<X extends unknown[] = []> = (x: string, ...args: X) => string;
+
+export type Rgb = number | {
+  r: number;
+  g: number;
+  b: number;
+};
+
+export type AnsiML = {
+  bold: F;
+  underline: F;
+  dim: F;
+  italic: F;
+  strikethrough: F;
+  hidden: F;
+  black: F;
+  blue: F;
+  cyan: F;
+  green: F;
+  magenta: F;
+  red: F;
+  white: F;
+  yellow: F;
+  gray: F;
+  brightBlack: F;
+  brightBlue: F;
+  brightCyan: F;
+  brightGreen: F;
+  brightMagenta: F;
+  brightRed: F;
+  brightWhite: F;
+  brightYellow: F;
+  bgBlack: F;
+  bgBlue: F;
+  bgCyan: F;
+  bgGreen: F;
+  bgMagenta: F;
+  bgRed: F;
+  bgWhite: F;
+  bgYellow: F;
+  bgBrightBlack: F;
+  bgBrightBlue: F;
+  bgBrightCyan: F;
+  bgBrightGreen: F;
+  bgBrightMagenta: F;
+  bgBrightRed: F;
+  bgBrightWhite: F;
+  bgBrightYellow: F;
+  inverse: F;
+  reset: F;
+  rgb8: F<[number]>;
+  bgRgb8: F<[number]>;
+  rgb24: F<[number | Rgb]>;
+  bgRgb24: F<[number | Rgb]>;
+  stripColor: F;
+};
