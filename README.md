@@ -5,12 +5,10 @@
 > and colors and thus semantic operations on formatted text. [AnsiML] comes with
 > a functional, statically typed implementation in TypeScript for [Deno].
 
-[![deno.land mod](https://img.shields.io/badge/deno.land-ansiml-lightgrey.svg?logo=deno)](https://deno.land/x/ansiml)
-[![deno.land doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/ansiml/mod.ts)
-![tag](https://img.shields.io/github/v/tag/eibens/ansiml)
-![MIT license](https://img.shields.io/github/license/eibens/ansiml)
-![CI](https://github.com/eibens/ansiml/workflows/ci/badge.svg)
-[![Code coverage](https://img.shields.io/codecov/c/github/eibens/ansiml)](https://codecov.io/gh/eibens/ansiml)
+[![License][license-shield]](LICENSE) [![Deno doc][deno-doc-shield]][deno-doc]
+[![Deno module][deno-land-shield]][deno-land]
+[![Github tag][github-shield]][github] [![Build][build-shield]][build]
+[![Code coverage][coverage-shield]][coverage]
 
 # Motivation
 
@@ -132,12 +130,7 @@ deno run https://deno.land/x/ansiml/demo.ts
 
 # Related Work
 
-[lgram] is used as the core of [AnsiML].
-
-# That's it!
-
-- Author: [Lukas Eibensteiner]
-- Repository: [eibens/ansiml on GitHub]
+[AnsiML] uses [lgram] under the hood.
 
 <!-- links -->
 
@@ -149,5 +142,17 @@ deno run https://deno.land/x/ansiml/demo.ts
 [ANSI colors]: https://en.wikipedia.org/wiki/ANSI_escape_code
 [Deno]: https://deno.land/
 [ANSI colors module]: https://deno.land/std/fmt/colors.ts
-[eibens/ansiml on GitHub]: https://github.com/eibens/ansiml
-[Lukas Eibensteiner]: mailto:l.eibesnteiner@gmail.com
+
+<!-- badges -->
+
+[github]: https://github.com/eibens/ansiml
+[github-shield]: https://img.shields.io/github/v/tag/eibens/ansiml?label&logo=github
+[coverage-shield]: https://img.shields.io/codecov/c/github/eibens/ansiml?logo=codecov&label
+[license-shield]: https://img.shields.io/github/license/eibens/ansiml?color=informational
+[coverage]: https://codecov.io/gh/eibens/ansiml
+[build]: https://github.com/eibens/ansiml/actions/workflows/ci.yml
+[build-shield]: https://img.shields.io/github/workflow/status/eibens/ansiml/ci?logo=github&label
+[deno-doc]: https://doc.deno.land/https/deno.land/x/ansiml/mod.ts
+[deno-doc-shield]: https://img.shields.io/badge/doc-informational?logo=deno
+[deno-land]: https://deno.land/x/ansiml
+[deno-land-shield]: https://img.shields.io/badge/x/ansiml-informational?logo=deno&label
