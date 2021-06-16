@@ -37,14 +37,33 @@ the actual text.
 # Documentation
 
 [AnsiML] exposes a TypeScript API for [Deno]. It represents AnsiML as a tree of
-terminal `string` values (leaf nodes) and non-terminal `Node` objects (internal
-nodes).
+terminal `string` values (leaf nodes) and non-terminal `Node` objects or
+`Node[]` arrays (internal nodes). A node object may have a sequence of commands,
+which are based on the [ANSI colors module] found in the [Deno] standard
+library.
+
+## [ansi.ts]
+
+The `Ansi` type and object both define and implement the available ANSI
+commands. It essentially re-exports the [ANSI colors module], but omits some of
+the exports that cannot be used as commands:
+
+```ts
+import { Ansi } from "https://deno.land/x/ansiml/ansi.ts";
+
+// Print bold text.
+console.log(Ansi.bold("some text"));
+
+// Print blue text.
+console.log(Ansi.rgb24("some text", 0x88CCFF));
+```
 
 ## [mod.ts]
 
-The `Command` type represents an ANSI color command as an array. The first
-element of this array is the name of a function in the [ANSI colors module]. The
-remaining elements are function arguments, for example an RGB color code:
+The `Command` type represents an ANSI color as an array. The first element of
+this array is the name of a function on the `Ansi` object exported from
+[ansi.ts]. The remaining elements are the function arguments, for example an RGB
+color code:
 
 ```ts
 import { Command } from "https://deno.land/x/ansiml/mod.ts";
@@ -60,22 +79,30 @@ const blue: Command = ["rgb24", 0x88CCFF];
 const invalid = ["bodl"];
 ```
 
-The `Node` type associates a `Command` array with raw text. It is either a plain
-`string`, or a tree node with `children` and `commands`. The following example
-defines bold, blue text:
+The `Node` defines an AnsiML tree structure. It is either a plain `string`, an
+object that associates a `children` node with an array of commands, or simply an
+array of nodes.
 
 ```ts
 import { Node } from "https://deno.land/x/ansiml/mod.ts";
 
-// Strings are leaf nodes in AnsiML.
+// Strings are leaf nodes.
 const text: Node = "some text";
 
-// This is an internal node in AnsiML.
+// This is an internal node.
 // The commands apply to all children.
 const internal: Node = {
   commands: [["bold"], ["rgb24", 0x88CCFF]],
-  children: [text],
+  children: text,
 };
+
+// An array of nodes is also a node.
+// The nodes will be concatenated.
+const nodes: Node = [
+  text,
+  "\n",
+  internal,
+];
 ```
 
 The `stringify` function converts a `Node` into a string with [ANSI colors]. It
@@ -92,22 +119,6 @@ const ansi = stringify({
 
 // Print bold, blue text.
 console.log(ansi);
-```
-
-## [ansi.ts]
-
-The `Ansi` type and object both define and implement the available ANSI color
-commands. It defines a subset of the properties exported by the
-[ANSI colors module]:
-
-```ts
-import { Ansi } from "https://deno.land/x/ansiml/ansi.ts";
-
-// Print bold text.
-console.log(Ansi.bold("some text"));
-
-// Print blue text.
-console.log(Ansi.rgb24("some text", 0x88CCFF));
 ```
 
 ## [demo.ts]

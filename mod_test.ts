@@ -14,3 +14,13 @@ Deno.test("stringify applies commands", () => {
   const expected = "\x1b[36mfoo\x1b[39m";
   assertEquals(actual, expected);
 });
+
+Deno.test("stringify renders array of nodes", () => {
+  const actual = stringify(["foo", "bar"]);
+  assertEquals(actual, "foobar");
+});
+
+Deno.test("stringify renders single child node", () => {
+  const actual = stringify({ commands: [], children: "text" });
+  assertEquals(actual, "text");
+});

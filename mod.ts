@@ -11,9 +11,9 @@ export type Command = Lookup.Command<string, string, Ansi>;
  *
  * The `commands` array defines the formatting instructions that are applied to the `children`.
  */
-export type Node = string | {
+export type Node = string | Node[] | {
   commands: Command[];
-  children: Node[];
+  children: Node;
 };
 
 /**
@@ -23,10 +23,24 @@ export type Node = string | {
  * @returns the ANSI formatted string.
  */
 export function stringify(node: Node): string {
+  // Base case for recursion.
   if (typeof node === "string") return node;
+
+  // Convert Node[] to a node object.
+  if (Array.isArray(node)) {
+    node = {
+      children: node,
+      commands: [],
+    };
+  }
   const { commands, children } = node;
-  const input = children.map(stringify).join("");
-  return Pipe.apply(input, commands, (input, command) => {
+
+  // Recurse on children and concatenate.
+  const nodes = Array.isArray(children) ? children : [children];
+  const content = nodes.map(stringify).join("");
+
+  // Apply the commands to the node content.
+  return Pipe.apply(content, commands, (input, command) => {
     return Lookup.apply(input, command, Ansi);
   });
 }

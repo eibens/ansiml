@@ -11,9 +11,7 @@ const node: Node = {
     "This text is ",
     {
       commands: pretty,
-      children: [
-        "pretty blue!",
-      ],
+      children: "pretty blue!",
     },
   ],
 };
