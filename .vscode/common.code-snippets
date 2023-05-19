@@ -1,0 +1,23 @@
+{
+  "consoleLog": {
+    "prefix": "cl",
+    "body": [
+      "console.log($1)"
+    ],
+    "description": "Console.log"
+  },
+  "commentHeaderHelpers": {
+    "prefix": "*H",
+    "body": [
+      "/** HELPERS **/$1"
+    ],
+    "description": "Comment Header: Helpers"
+  },
+  "commentHeaderMain": {
+    "prefix": "*M",
+    "body": [
+      "/** MAIN **/$1"
+    ],
+    "description": "Comment Header: Main"
+  }
+}

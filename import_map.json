@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "ansiml": "https://deno.land/x/ansiml"
+  }
+}
