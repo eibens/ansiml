@@ -4,7 +4,7 @@
     "cov": "deno test -A --coverage=.cov && deno coverage .cov",
     "lcov": "deno coverage .cov --lcov > .lcov",
     "fix": "deno fmt && deno lint && deno test -A",
-    "ci": "deno fmt --check && deno lint && deno task lcov && bash codecov.sh .lcov"
+    "ci": "deno fmt --check && deno lint && deno task cov && deno task lcov && bash codecov.sh .lcov"
   },
   "compilerOptions": {
     "jsxImportSource": "ansiml",
