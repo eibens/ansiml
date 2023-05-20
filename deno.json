@@ -1,14 +1,11 @@
 {
   "lock": false,
+  "importMap": "import_map.json",
   "tasks": {
     "cov": "deno test -A --coverage=.cov && deno coverage .cov",
     "lcov": "deno coverage .cov --lcov > .lcov",
     "fix": "deno fmt && deno lint && deno test -A",
     "ci": "deno fmt --check && deno lint && deno task cov && deno task lcov && bash codecov.sh .lcov"
-  },
-  "compilerOptions": {
-    "jsxImportSource": "ansiml",
-    "jsx": "react-jsx"
   },
   "fmt": {
     "exclude": [

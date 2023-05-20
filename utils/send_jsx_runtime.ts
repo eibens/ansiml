@@ -1,5 +1,4 @@
 import { toFileUrl } from "https://deno.land/std@0.188.0/path/mod.ts";
-import { join } from "https://deno.land/std@0.188.0/path/win32.ts";
 import * as es from "https://deno.land/x/esbuild@v0.15.10/mod.js";
 import { denoPlugin } from "https://deno.land/x/esbuild_deno_loader@0.6.0/mod.ts";
 import { Middleware } from "https://deno.land/x/oak@v11.1.0/mod.ts";
@@ -7,7 +6,7 @@ import { Middleware } from "https://deno.land/x/oak@v11.1.0/mod.ts";
 /** MAIN **/
 
 export function sendJsxRuntime(options: {
-  root: string;
+  root: URL;
   tempFile?: string;
   importMapUrl?: URL;
 }): Middleware {
@@ -19,15 +18,15 @@ export function sendJsxRuntime(options: {
 
   return async (ctx, next) => {
     const path = ctx.request.url.pathname;
-    const file = join(root, path);
+    const file = new URL(path, root).pathname;
 
     if (!file.endsWith("/jsx-runtime")) {
       return next();
     }
 
-    const source = new URL(tempFile, import.meta.url);
+    const source = new URL(tempFile, root);
     const output = toFileUrl(Deno.makeTempFileSync());
-    const jsxRuntime = new URL("./jsx-runtime", import.meta.url);
+    const jsxRuntime = new URL("./jsx-runtime", root);
     const code = await Deno.readTextFile(jsxRuntime);
     await Deno.writeTextFile(source, code, { createNew: true });
 

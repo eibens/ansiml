@@ -1,4 +1,16 @@
-import { ANSI, Ansi, HTML, Node, stringify, TEXT } from "../mod.ts";
+/** @jsx jsx */
+/** @jsxFrag Fragment */
+
+import {
+  ANSI,
+  Ansi,
+  Fragment,
+  HTML,
+  jsx,
+  Node,
+  stringify,
+  TEXT,
+} from "../mod.ts";
 
 const node: Node<typeof ANSI> = (
   <>

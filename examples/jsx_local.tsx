@@ -1,3 +1,8 @@
+/*
+This can only be run if http://localhost:8000/jsx-runtime serves the JSX runtime.
+See examples/jsx_local_server.ts for more information.
+*/
+
 /** @jsxImportSource http://localhost:8000 */
 
 import { ANSI, Ansi, HTML, Node, stringify, TEXT } from "../mod.ts";

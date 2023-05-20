@@ -1,4 +1,4 @@
-/** @jsxImportSource https://deno.land/x/ansiml */
+/** @jsxImportSource https://deno.land/x/ansiml@v0.0.4 */
 
 import { ANSI, Ansi, HTML, Node, stringify, TEXT } from "../mod.ts";
 
