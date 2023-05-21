@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.91.0/testing/asserts.ts";
-import { Node, stringify } from "./stringify.ts";
+import { Children, stringify } from "./stringify.ts";
 
 /** HELPERS **/
 
@@ -9,7 +9,7 @@ const FORMAT = {
   round: (str: string) => `(${str})`,
 };
 
-const render = (x: Node<typeof FORMAT>) => stringify(x, FORMAT);
+const render = (x: Children<typeof FORMAT>) => stringify(x, FORMAT);
 
 /** MAIN **/
 

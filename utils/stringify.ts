@@ -38,26 +38,31 @@ export type Command<T extends Transformers<X, Y>, X, Y> = {
 /**
  * Represents an internal node in a tree of formatted text.
  */
+export type Props<T extends Transformers<string, string>> = {
+  /**
+   * The children of this node.
+   */
+  children?: Children<T>;
+
+  /**
+   * Formatting instructions that are applied to the [children].
+   *
+   * A formatting instruction is a tuple of the form `[name, ...args]`.
+   *
+   * - `name` is the name of the formatter.
+   * - `args` are the parameters to the transformer.
+   */
+  commands?: Command<T, string, string>[];
+};
+
 export type Node<T extends Transformers<string, string>> =
   | undefined
   | string
-  | Node<T>[]
-  | {
-    /**
-     * The children of this node.
-     */
-    children?: Node<T>;
+  | Props<T>;
 
-    /**
-     * Formatting instructions that are applied to the [children].
-     *
-     * A formatting instruction is a tuple of the form `[name, ...args]`.
-     *
-     * - `name` is the name of the formatter.
-     * - `args` are the parameters to the transformer.
-     */
-    commands?: Command<T, string, string>[];
-  };
+export type Children<T extends Transformers<string, string>> =
+  | Node<T>
+  | Node<T>[];
 
 /**
  * Transforms a node into a formatted string.
@@ -67,22 +72,22 @@ export type Node<T extends Transformers<string, string>> =
  * @returns the formatted string.
  */
 export function stringify<T extends Transformers<string, string>>(
-  node: Node<T>,
+  input: Children<T>,
   transformers: T,
 ): string {
   // Return leaf nodes.
-  if (typeof node === "undefined") return "";
-  if (typeof node === "string") return node;
+  if (typeof input === "undefined") return "";
+  if (typeof input === "string") return input;
 
   // Wrap node arrays in a parent node.
-  if (Array.isArray(node)) {
-    node = {
-      children: node,
+  if (Array.isArray(input)) {
+    input = {
+      children: input,
       commands: [],
     };
   }
 
-  const { commands, children } = node;
+  const { commands, children } = input;
   // Recurse on children and concatenate.
   const childArray = Array.isArray(children) ? children : [children];
   const content = childArray

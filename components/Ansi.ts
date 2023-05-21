@@ -1,6 +1,6 @@
-import type { AnsiNode } from "../utils/ansi_node.ts";
+import type { AnsiProps } from "../utils/ansi_node.ts";
 
-export type AnsiProps = AnsiNode;
+/** MAIN **/
 
 export function Ansi(props: AnsiProps) {
   return props;
