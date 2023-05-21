@@ -39,34 +39,31 @@ difficult. Consider these scenarios:
 
 [AnsiML] solves this with an intermediate representation that keeps color codes
 separate from the actual text. It represents colored text as a tree of terminal
-`string` values (leaf nodes) and non-terminal `Node` objects or `Node[]` arrays
-(internal nodes). A node object can have a sequence of color commands.
+string values and non-terminal node objects. Each node object can have a
+sequence of color commands, allowing for hierarchical styling of the text. See
+the [examples](./examples/) folder for more.
 
-```ts
-type Node = string | Node[] | {
-  commands?: Command[];
-  children?: Node;
-};
-```
+# Features
 
-The commands are based on the [ANSI colors module] found in the [Deno] standard
-library. Each command is an array, where the first element is the name of a
-formatter, and the remaining elements are the arguments of the formatter.
+- Rendering to ANSI colored text, HTML, or plain text.
+- JSX runtime for using JSX syntax to create AnsiML trees.
+- Generic `stringify` function for custom commands and output formats.
+- High-level `Styled` component for nicer dev experience.
 
 # Note on jsx-runtime
 
 The modern way of configuring JSX is via the `jsxImportSource` compiler option,
-specified either in the TypeScript `compilerOptions` file or as a pragma
-comment. This can be an URL or bare specifier (defined in an import map).
-TypeScript will then append `/jsx-runtime` to this specifier and try to import
-it as a module. This module is expected a bunch of functions, mainly `jsx`,
-`jsxs`, and `Fragment`.
+specified either in the `compilerOptions` section or as a pragma comment. This
+can be an URL or bare specifier (defined in an import map). TypeScript will then
+append `/jsx-runtime` to this specifier and try to import it as a module. This
+module is expected to export the JSX related functions, such as `jsx`, `jsxs`,
+and `Fragment`.
 
 Unfortunately, Deno will fail to interpret a module named `jsx-runtime` as a
 TypeScript module because it does not end in `.ts` or `.tsx`. The workaround is
 to host the module on a CDN that serves the module with the correct MIME type.
-In order to run the examples in the repository, use `deno run -A server.ts` to
-serve the module locally.
+In order to run the examples in the repository locally, use
+`deno run -A server.ts`.Ø
 
 <!-- links -->
 

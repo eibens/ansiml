@@ -6,7 +6,7 @@ import { toAnsi } from "./ansi.ts";
 Deno.test("stringify applies commands", () => {
   const actual = toAnsi({
     commands: [["cyan"]],
-    children: ["foo"],
+    children: "foo",
   });
 
   // \x1b: ESC character
