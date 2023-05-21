@@ -63,7 +63,13 @@ Unfortunately, Deno will fail to interpret a module named `jsx-runtime` as a
 TypeScript module because it does not end in `.ts` or `.tsx`. The workaround is
 to host the module on a CDN that serves the module with the correct MIME type.
 In order to run the examples in the repository locally, use
-`deno run -A server.ts`.Ø
+`deno run -A server.ts`.
+
+As of May 2023, [https://deno.land/x/](https://deno.land/x/) does not serve the
+module with the correct MIME type. Use the legacy configuration via `jsxFactory`
+and `jsxFragmentFactory` or the pragma comments `@jsx` and `@jsxFrag` instead.
+Import `h` and `Fragment` from [mod.ts]. Wait until
+[this issue](https://github.com/denoland/dotland/issues/2212) is resolved.
 
 <!-- links -->
 

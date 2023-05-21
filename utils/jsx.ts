@@ -4,7 +4,7 @@ import type { AnsiNode } from "./ansi_node.ts";
 
 export function jsx<P>(
   type: (props: P) => AnsiNode,
-  props: P,
+  props: P & { children: AnsiNode },
 ) {
   return type(props);
 }
