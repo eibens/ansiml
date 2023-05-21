@@ -76,8 +76,9 @@ export function stringify<T extends Transformers<string, string>>(
   transformers: T,
 ): string {
   // Return leaf nodes.
-  if (typeof input === "undefined") return "";
-  if (typeof input === "string") return input;
+  if (input == null) return "";
+  if (typeof input === "boolean") return "";
+  if (typeof input !== "object") return String(input);
 
   // Wrap node arrays in a parent node.
   if (Array.isArray(input)) {

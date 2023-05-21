@@ -1,4 +1,3 @@
-export * from "./components/Ansi.ts";
 export * from "./components/Styled.ts";
 export * from "./utils/ansi.ts";
 export * from "./utils/ansi_node.ts";

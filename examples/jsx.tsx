@@ -5,12 +5,12 @@ Start a local web server with: deno run -A serve.ts
 
 /** @jsxImportSource http://localhost:8000 */
 
-import { Ansi, AnsiNode } from "../mod.ts";
+import { AnsiNode } from "../mod.ts";
 import { toAnsi } from "../utils/ansi.ts";
 
 const node: AnsiNode = (
   <>
-    Hello <Ansi commands={[["red"]]}>World</Ansi>!
+    Hello <ansi commands={[["red"]]}>World</ansi>!
   </>
 );
 
