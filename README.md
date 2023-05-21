@@ -16,7 +16,7 @@ formats.
 [license-shield]: https://img.shields.io/github/license/eibens/ansiml?color=informational
 [coverage]: https://codecov.io/gh/eibens/ansiml
 [build]: https://github.com/eibens/ansiml/actions/workflows/ci.yml
-[build-shield]: https://img.shields.io/github/workflow/status/eibens/ansiml/ci?logo=github&label
+[build-shield]: https://img.shields.io/github/actions/workflow/status/eibens/ansiml/ci.yml?branch=main
 [deno-doc]: https://doc.deno.land/https/deno.land/x/ansiml/mod.ts
 [deno-doc-shield]: https://img.shields.io/badge/doc-informational?logo=deno
 [deno-land]: https://deno.land/x/ansiml
