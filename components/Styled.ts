@@ -1,3 +1,4 @@
+import { AnsiChildren } from "../mod.ts";
 import { AnsiCommand, AnsiNode } from "../utils/ansi_node.ts";
 
 /** MAIN **/
@@ -39,7 +40,7 @@ export type StyledProps = {
   underline?: boolean;
   strikethrough?: boolean;
   italic?: boolean;
-  children?: AnsiNode;
+  children?: AnsiChildren;
 };
 
 export function Styled(props: StyledProps): AnsiNode {

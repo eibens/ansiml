@@ -56,13 +56,17 @@ export type Props<T extends Transformers<string, string>> = {
 };
 
 export type Node<T extends Transformers<string, string>> =
+  | null
   | undefined
   | string
+  | number
+  | boolean
+  | bigint
   | Props<T>;
 
 export type Children<T extends Transformers<string, string>> =
   | Node<T>
-  | Node<T>[];
+  | Children<T>[];
 
 /**
  * Transforms a node into a formatted string.

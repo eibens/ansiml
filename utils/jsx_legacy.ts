@@ -1,12 +1,12 @@
-import type { AnsiNode } from "./ansi_node.ts";
+import type { AnsiChildren, AnsiNode } from "./ansi_node.ts";
 import { jsx } from "./jsx.ts";
 
 /** MAIN **/
 
 export function h<P>(
   type: (props: P) => AnsiNode,
-  props: P & { children?: AnsiNode },
-  ...children: AnsiNode[]
+  props: P & { children?: AnsiChildren },
+  ...children: AnsiChildren[]
 ) {
   return jsx(type, {
     ...props,
