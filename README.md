@@ -53,6 +53,21 @@ The commands are based on the [ANSI colors module] found in the [Deno] standard
 library. Each command is an array, where the first element is the name of a
 formatter, and the remaining elements are the arguments of the formatter.
 
+# Note on jsx-runtime
+
+The modern way of configuring JSX is via the `jsxImportSource` compiler option,
+specified either in the TypeScript `compilerOptions` file or as a pragma
+comment. This can be an URL or bare specifier (defined in an import map).
+TypeScript will then append `/jsx-runtime` to this specifier and try to import
+it as a module. This module is expected a bunch of functions, mainly `jsx`,
+`jsxs`, and `Fragment`.
+
+Unfortunately, Deno will fail to interpret a module named `jsx-runtime` as a
+TypeScript module because it does not end in `.ts` or `.tsx`. The workaround is
+to host the module on a CDN that serves the module with the correct MIME type.
+In order to run the examples in the repository, use `deno run -A server.ts` to
+serve the module locally.
+
 <!-- links -->
 
 [AnsiML]: #

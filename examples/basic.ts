@@ -1,9 +1,9 @@
 // Prints a basic AnsiML example.
 // Usage: deno run example.ts
 
-import { ANSI, Node, stringify } from "../mod.ts";
+import { AnsiNode, toAnsi, toHtml } from "../mod.ts";
 
-const node: Node<typeof ANSI> = {
+const node: AnsiNode = {
   commands: [
     ["bgRgb24", { r: 128, g: 192, b: 255 }],
   ],
@@ -19,6 +19,5 @@ const node: Node<typeof ANSI> = {
   ],
 };
 
-const output = stringify(node, ANSI);
-
-console.log(output);
+console.log(toAnsi(node));
+console.log(toHtml(node));

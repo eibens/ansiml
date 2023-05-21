@@ -1,15 +1,10 @@
 import { assertEquals } from "https://deno.land/std@0.91.0/testing/asserts.ts";
-import { Node, stringify } from "./stringify.ts";
-import { TEXT } from "./text.ts";
-
-/** HELPERS **/
-
-const render = (x: Node<typeof TEXT>) => stringify(x, TEXT);
+import { toText } from "./text.ts";
 
 /** MAIN **/
 
 Deno.test("stringify applies commands", () => {
-  const actual = render({
+  const actual = toText({
     commands: [["cyan"]],
     children: ["foo"],
   });

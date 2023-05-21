@@ -1,5 +1,5 @@
-import type { ANSI, Node } from "../mod.ts";
+import type { AnsiNode } from "../utils/ansi_node.ts";
 
-export function Ansi(props: Node<typeof ANSI>) {
+export function Ansi(props: AnsiNode) {
   return props;
 }

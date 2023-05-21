@@ -1,10 +1,9 @@
-import type * as ANSI from "./ansi.ts";
-import { Node } from "./stringify.ts";
+import type { AnsiNode } from "./ansi_node.ts";
 
 /** MAIN **/
 
 export function jsx<P>(
-  type: (props: P) => Node<typeof ANSI>,
+  type: (props: P) => AnsiNode,
   props: P,
 ) {
   return type(props);
@@ -12,8 +11,8 @@ export function jsx<P>(
 
 export const jsxs = jsx;
 
-export function Fragment(
-  props: { children: Node<typeof ANSI> },
-) {
+export function Fragment(props: {
+  children: AnsiNode;
+}) {
   return props.children;
 }

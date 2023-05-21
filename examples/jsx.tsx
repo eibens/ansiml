@@ -1,3 +1,19 @@
+/*
+This can only be run if http://localhost:8000/jsx-runtime serves the JSX runtime.
+Start a web server in the root of this repository with: deno run -A serve.ts
+*/
+
+/** @jsxImportSource http://localhost:8000 */
+
+import { ANSI, Ansi, AnsiNode, stringify } from "../mod.ts";
+
+const node: AnsiNode = (
+  <>
+    <Ansi commands={[["red"]]}>test</Ansi>test
+  </>
+);
+
+console.log(stringify(node, ANSI));
 import { toFileUrl } from "https://deno.land/std@0.188.0/path/mod.ts";
 import * as es from "https://deno.land/x/esbuild@v0.15.10/mod.js";
 import { denoPlugin } from "https://deno.land/x/esbuild_deno_loader@0.6.0/mod.ts";

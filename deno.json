@@ -1,6 +1,5 @@
 {
   "lock": false,
-  "importMap": "import_map.json",
   "tasks": {
     "cov": "deno test -A --coverage=.cov && deno coverage .cov",
     "lcov": "deno coverage .cov --lcov > .lcov",

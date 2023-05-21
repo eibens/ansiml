@@ -1,6 +1,0 @@
-{
-  "imports": {
-    "ansiml": "https://deno.land/x/ansiml@v0.0.4",
-    "ansiml/": "https://deno.land/x/ansiml@v0.0.4/"
-  }
-}
