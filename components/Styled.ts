@@ -1,5 +1,4 @@
-import { AnsiChildren } from "../mod.ts";
-import { AnsiCommand, AnsiNode } from "../utils/ansi_node.ts";
+import { AnsiCommand, AnsiNode, AnsiProps } from "../utils/ansi_node.ts";
 
 /** MAIN **/
 
@@ -33,14 +32,13 @@ export type Color =
   | RgbColor
   | RgbObjectColor;
 
-export type StyledProps = {
+export type StyledProps = AnsiProps & {
   background?: Color;
   color?: Color;
   bold?: boolean;
   underline?: boolean;
   strikethrough?: boolean;
   italic?: boolean;
-  children?: AnsiChildren;
 };
 
 export function Styled(props: StyledProps): AnsiNode {
@@ -55,6 +53,7 @@ export function Styled(props: StyledProps): AnsiNode {
   } = props;
 
   const commands = [
+    ...props.commands ?? [],
     underline && ["underline"],
     strikethrough && ["strikethrough"],
     bold && ["bold"],
